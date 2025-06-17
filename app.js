@@ -9,18 +9,19 @@ const imageNames = [
   "Ichki Hovlining Markaziy Ko‘rinishi – Kirish va Gumbazli Qism", // 8.jpg
   " Ichki Hovli – Tashqi Darvozaga Qaragan Tomon", // 9.jpg
   "Namozxona Ichki Ko‘rinishi – Gumbazli Shift va Zamin", // 10.jpg
-  "Tarixiy idishlar xonasi", // 11.jpg
-  "Hovli ichki tomondan", // 12.jpg
-  "Yodgorlik xonasi", // 13.jpg
-  "Orqa hovli", // 14.jpg
-  "Ichki eshiklar va bezaklar", // 15.jpg
-  "San’at ko‘rgazmasi", // 16.jpg
-  "Ko‘rkam mehmonxona", // 17.jpg
-  "Yozgi ayvon", // 18.jpg
-  "Kutubxona eshigi", // 19.jpg
-  "Kutubxona xonasi", // 20.jpg
-  "Uy qurollari xonasi", // 21.jpg
-  "Klassik dam olish xonasi"  // 22.jpg
+  "Namozxona chapdan ko‘rinishi – Shift va devor naqshlari uyg‘unligi", // 11.jpg
+  "Namozxona to‘liq ko‘rinishi – Markazdan panoramali tasvir", // 12.jpg
+  " Asosiy gumbaz osti – Yumaloq yoritkich va naqshlar uyg‘unligi", // 13.jpg
+  "Gumbazli namozxona – Janubiy devor va Mihrob yo‘nalishi", // 14.jpg
+  "Markaziy Mihrob va Minbar – Qur’oni yozuvlar bilan bezatilgan markaz", // 15.jpg
+  "Devoriy bezaklar – “Alloh”, “Muhammad” yozuvlari va naqshlar", // 16.jpg
+  "Markaziy gumbaz tepa ko‘rinishi – Moviy naqshlar va yoritkich ", // 17.jpg
+  "Markaziy yoritkich (lyustra) – Yorqin naqsh va o‘yma elementlar ", // 18.jpg
+  "Yulduzsimon gumbaz naqshi – O‘rtadagi murakkab geometrik naqshlar", // 19.jpg
+  " Ichki gumbazning yuqori markazi – Sof moviy va oltin naqshlar uyg‘unligi", // 20.jpg
+  "Hazrati Imom Darvozaxonasi – Ichki ko‘rinish va bezakli koshinlar", // 21.jpg
+  " Ko‘hna Gumbazli Qism – Majmuaning tarixiy yodgorlik fasadi",  // 22.jpg
+  "Suvenirlar va Hunarmandchilik Do‘koni – Ichki bezaklar va xalq amaliy san’ati ko‘rgazmasi ",  // 22.jpg
 ];
 
 const scenes = {};
