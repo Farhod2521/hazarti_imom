@@ -1,28 +1,29 @@
 const imageNames = [
-  "Hazrati Imom Majmuasining Umumiy Ko‘rinishi (Tashqi hovli va minoralar)", // 1.jpg
-  "Asosiy Kirish Darvozasi va Bosh Fasadi (Hazrati Imom Masjidi)  ", // 2.jpg
-  "Hazrati Imom Majmuasi To‘g‘risidagi Ma’lumotnoma Toshi", // 3.jpg
-  "Chap Tomon Minorasi va Devordagi Bezash Detallari", // 4.jpg
-  "Asosiy Fasad – Markaziy Kirish Qismi Yaqindan", // 5.jpg
-  "Ichki Hovli Ko‘rinishi – Gumbazlar va Yog‘och Ustunlar", // 6.jpg
-  "Ichki Hovli – Yog‘och Ustunlar Ostida Panoramali Ko‘rinish", // 7.jpg
-  "Ichki Hovlining Markaziy Ko‘rinishi – Kirish va Gumbazli Qism", // 8.jpg
-  " Ichki Hovli – Tashqi Darvozaga Qaragan Tomon", // 9.jpg
-  "Namozxona Ichki Ko‘rinishi – Gumbazli Shift va Zamin", // 10.jpg
-  "Namozxona chapdan ko‘rinishi – Shift va devor naqshlari uyg‘unligi", // 11.jpg
-  "Namozxona to‘liq ko‘rinishi – Markazdan panoramali tasvir", // 12.jpg
-  " Asosiy gumbaz osti – Yumaloq yoritkich va naqshlar uyg‘unligi", // 13.jpg
-  "Gumbazli namozxona – Janubiy devor va Mihrob yo‘nalishi", // 14.jpg
-  "Markaziy Mihrob va Minbar – Qur’oni yozuvlar bilan bezatilgan markaz", // 15.jpg
-  "Devoriy bezaklar – “Alloh”, “Muhammad” yozuvlari va naqshlar", // 16.jpg
-  "Markaziy gumbaz tepa ko‘rinishi – Moviy naqshlar va yoritkich ", // 17.jpg
-  "Markaziy yoritkich (lyustra) – Yorqin naqsh va o‘yma elementlar ", // 18.jpg
-  "Yulduzsimon gumbaz naqshi – O‘rtadagi murakkab geometrik naqshlar", // 19.jpg
-  " Ichki gumbazning yuqori markazi – Sof moviy va oltin naqshlar uyg‘unligi", // 20.jpg
-  "Hazrati Imom Darvozaxonasi – Ichki ko‘rinish va bezakli koshinlar", // 21.jpg
-  " Ko‘hna Gumbazli Qism – Majmuaning tarixiy yodgorlik fasadi",  // 22.jpg
-  "Suvenirlar va Hunarmandchilik Do‘koni – Ichki bezaklar va xalq amaliy san’ati ko‘rgazmasi ",  // 22.jpg
+  "Общий вид комплекса Хазрати Имам (внешний двор и минареты)", // 1.jpg
+  "Главные входные ворота и фасад (мечеть Хазрати Имам)", // 2.jpg
+  "Информационный камень о комплексе Хазрати Имам", // 3.jpg
+  "Левая минарета и декоративные элементы на стене", // 4.jpg
+  "Основной фасад – центральная входная часть крупным планом", // 5.jpg
+  "Вид внутреннего двора – купола и деревянные колонны", // 6.jpg
+  "Внутренний двор – панорамный вид под деревянными колоннами", // 7.jpg
+  "Центральный вид внутреннего двора – вход и купольная часть", // 8.jpg
+  "Внутренний двор – вид в сторону внешних ворот", // 9.jpg
+  "Внутренний вид молельного зала – купольный потолок и пол", // 10.jpg
+  "Молельный зал с левой стороны – гармония потолка и настенных узоров", // 11.jpg
+  "Полный вид молельного зала – панорама из центра", // 12.jpg
+  "Под основным куполом – гармония круглого светильника и узоров", // 13.jpg
+  "Купольный молельный зал – южная стена и направление михраба", // 14.jpg
+  "Центральный михраб и минбар – украшен надписями из Корана", // 15.jpg
+  "Настенные украшения – надписи «Аллах», «Мухаммад» и узоры", // 16.jpg
+  "Вид сверху центрального купола – голубые узоры и светильник", // 17.jpg
+  "Центральный светильник (люстра) – яркий орнамент и резьба", // 18.jpg
+  "Узор купола в форме звезды – сложные геометрические орнаменты", // 19.jpg
+  "Верхняя центральная часть внутреннего купола – гармония синего и золотого", // 20.jpg
+  "Входной зал Хазрати Имама – внутренний вид и декоративная плитка", // 21.jpg
+  "Старинная купольная часть – исторический фасад комплекса",  // 22.jpg
+  "Магазин сувениров и народных ремёсел – внутренний декор и выставка прикладного искусства",  // 22.jpg
 ];
+
 
 const scenes = {};
 for (let i = 1; i <= 22; i++) {

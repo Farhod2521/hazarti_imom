@@ -1,24 +1,908 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hazrati Imom Majmuasi</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Комплекс Хазрати Имам | Виртуальный тур</title>
   <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary: #3498db;
+      --secondary: #2c3e50;
+      --accent: #e74c3c;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+      --success: #2ecc71;
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--secondary), #1a2530);
+      color: var(--light);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      max-width: 2000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .header {
+      padding: 15px 25px;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      font-size: 28px;
+      color: var(--primary);
+    }
+
+    .logo h1 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      background: linear-gradient(to right, var(--primary), #1abc9c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .search-box {
+      position: relative;
+      width: 300px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 15px 10px 40px;
+      border-radius: 50px;
+      border: none;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 16px;
+      transition: var(--transition);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .search-box input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .main-content {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      padding: 0 20px 20px;
+      gap: 20px;
+    }
+
+    .sidebar {
+      width: 320px;
+      background: rgba(30, 30, 30, 0.85);
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-header h2 {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .view-btn {
+      flex: 1;
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.7);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 14px;
+    }
+
+    .view-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+    }
+
+    .view-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    #image-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      overflow-y: auto;
+      flex: 1;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    #image-list.list-view li {
+      padding: 15px;
+      cursor: pointer;
+      transition: var(--transition);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    #image-list.list-view li:hover {
+      background: rgba(52, 152, 219, 0.15);
+    }
+
+    #image-list.list-view li.active {
+      background: rgba(52, 152, 219, 0.25);
+      border-left: 3px solid var(--primary);
+    }
+
+    .list-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: linear-gradient(45deg, var(--secondary), var(--primary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .image-info {
+      flex: 1;
+    }
+
+    .image-info h3 {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .image-info p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Grid View */
+    #image-list.grid-view {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 12px;
+      padding: 5px;
+    }
+
+    #image-list.grid-view li {
+      aspect-ratio: 1/1;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #image-list.grid-view li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    #image-list.grid-view li.active {
+      box-shadow: 0 0 0 3px var(--primary);
+    }
+
+    #image-list.grid-view .grid-img {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #2c3e50, #4a6491);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    #image-list.grid-view .grid-title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 8px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .panorama-container {
+      flex: 1;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      position: relative;
+      background: #000;
+    }
+
+    #panorama {
+      width: 100%;
+      height: 100%;
+    }
+
+    .controls-container {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      display: flex;
+      gap: 15px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 12px 20px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .controls-container button {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .controls-container button:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .progress-container {
+      position: absolute;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 8px 20px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .progress-bar {
+      width: 200px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      border-radius: 3px;
+      width: 5%;
+      transition: width 0.3s ease;
+    }
+
+    .auto-rotate-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 8px 15px;
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .auto-rotate-control button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .auto-rotate-control button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .auto-rotate-control .speed-control {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+    }
+
+    .auto-rotate-control input[type="range"] {
+      width: 80px;
+    }
+
+    .pannellum-hotSpot {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      background: rgba(52, 152, 219, 0.8);
+      border: 2px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .pannellum-hotSpot:hover {
+      transform: scale(1.1);
+      background: rgba(231, 76, 60, 0.9);
+    }
+
+    .pannellum-hotSpot::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-sizing: border-box;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      70% {
+        transform: scale(1.8);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.8);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive design */
+    @media (max-width: 992px) {
+      .main-content {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        max-height: 250px;
+      }
+      
+      .panorama-container {
+        min-height: 50vh;
+      }
+      
+      .controls-container {
+        bottom: 15px;
+        padding: 10px 15px;
+      }
+      
+      .controls-container button {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+      }
+      
+      .progress-container {
+        bottom: 70px;
+        padding: 6px 15px;
+      }
+      
+      .progress-bar {
+        width: 150px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+      }
+      
+      .search-box {
+        width: 100%;
+      }
+      
+      .logo h1 {
+        font-size: 1.3rem;
+      }
+      
+      .auto-rotate-control {
+        top: 80px;
+        right: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .progress-container {
+        width: 90%;
+        flex-direction: column;
+        padding: 10px;
+        bottom: 85px;
+      }
+      
+      .progress-bar {
+        width: 100%;
+      }
+      
+      .controls-container {
+        width: 90%;
+        justify-content: space-around;
+      }
+      
+      .auto-rotate-control {
+        top: auto;
+        bottom: 150px;
+        right: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="sidebar">
-      <h2>Hazrati Imom Majmuasi</h2>
-      <ul id="image-list"></ul>
+  <div class="app-container">
+    <div class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-mosque"></i>
+        </div>
+        <h1>Комплекс Хазрати Имам | 360° Виртуальный Тур</h1>
+      </div>
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="search-input" placeholder="Поиск по локациям...">
+      </div>
     </div>
-    <div id="panorama"></div>
+    
+    <div class="main-content">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <h2>Панорамы комплекса</h2>
+          <div class="view-toggle">
+            <button class="view-btn active" id="list-view-btn">
+              <i class="fas fa-list"></i> Список
+            </button>
+            <button class="view-btn" id="grid-view-btn">
+              <i class="fas fa-th-large"></i> Сетка
+            </button>
+          </div>
+        </div>
+        <ul id="image-list" class="list-view"></ul>
+      </div>
+      
+      <div class="panorama-container">
+        <div id="panorama"></div>
+        <div class="auto-rotate-control">
+          <button id="rotate-toggle">
+            <i class="fas fa-sync"></i>
+          </button>
+          <div class="speed-control">
+            <i class="fas fa-tachometer-alt"></i>
+            <input type="range" id="rotate-speed" min="0.5" max="5" step="0.5" value="2">
+          </div>
+        </div>
+        <div class="progress-container">
+          <span id="current-index">1</span>
+          <span>из</span>
+          <span id="total-count">22</span>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+        <div class="controls-container">
+          <button id="prevBtn">
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <button id="homeBtn">
+            <i class="fas fa-home"></i>
+          </button>
+          <button id="nextBtn">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+          <button id="fullscreen-btn">
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="custom-controls">
-    <button id="prevBtn">⬅ Orqaga</button>
-    <button id="nextBtn">Keyingi ➡</button>
-  </div>
-  <script src="app.js"></script>
+
+  <script>
+    const imageNames = [
+      "Общий вид комплекса Хазрати Имам (внешний двор и минареты)",
+      "Главные входные ворота и фасад (мечеть Хазрати Имам)",
+      "Информационный камень о комплексе Хазрати Имам",
+      "Левая минарета и декоративные элементы на стене",
+      "Основной фасад – центральная входная часть крупным планом",
+      "Вид внутреннего двора – купола и деревянные колонны",
+      "Внутренний двор – панорамный вид под деревянными колоннами",
+      "Центральный вид внутреннего двора – вход и купольная часть",
+      "Внутренний двор – вид в сторону внешних ворот",
+      "Внутренний вид молельного зала – купольный потолок и пол",
+      "Молельный зал с левой стороны – гармония потолка и настенных узоров",
+      "Полный вид молельного зала – панорама из центра",
+      "Под основным куполом – гармония круглого светильника и узоров",
+      "Купольный молельный зал – южная стена и направление михраба",
+      "Центральный михраб и минбар – украшен надписями из Корана",
+      "Настенные украшения – надписи «Аллах», «Мухаммад» и узоры",
+      "Вид сверху центрального купола – голубые узоры и светильник",
+      "Центральный светильник (люстра) – яркий орнамент и резьба",
+      "Узор купола в форме звезды – сложные геометрические орнаменты",
+      "Верхняя центральная часть внутреннего купола – гармония синего и золотого",
+      "Входной зал Хазрати Имама – внутренний вид и декоративная плитка",
+      "Старинная купольная часть – исторический фасад комплекса",
+      "Магазин сувениров и народных ремёсел – внутренний декор и выставка прикладного искусства"
+    ];
+
+    const scenes = {};
+    for (let i = 1; i <= 22; i++) {
+      const img = `${i}.jpg`;
+      scenes[img] = {
+        pitch: 0,
+        yaw: 0,
+        hfov: 110,
+        hotSpots: [],
+        title: imageNames[i - 1]
+      };
+
+      if (i > 1) {
+        scenes[img].hotSpots.push({
+          pitch: 0,
+          yaw: -30,
+          type: 'scene',
+          text: '⬅ Назад',
+          sceneId: `${i - 1}.jpg`,
+          cssClass: 'custom-hotspot visible-hotspot'
+        });
+      }
+
+      if (i < 22) {
+        scenes[img].hotSpots.push({
+          pitch: 0,
+          yaw: 30,
+          type: 'scene',
+          text: 'Вперёд ➡',
+          sceneId: `${i + 1}.jpg`,
+          cssClass: 'custom-hotspot visible-hotspot'
+        });
+      }
+    }
+
+    // Custom hotspot for 1.jpg (kirish markazi)
+    scenes['1.jpg'].hotSpots.push({
+      pitch: 0,
+      yaw: 12,
+      type: 'scene',
+      text: 'Войти внутрь',
+      sceneId: '2.jpg',
+      cssClass: 'custom-hotspot visible-hotspot'
+    });
+
+    // Initialize Pannellum viewer
+    const viewer = pannellum.viewer('panorama', {
+      default: {
+        firstScene: '1.jpg',
+        sceneFadeDuration: 1000,
+        autoLoad: true,
+        autoRotate: 2,
+        showControls: false,
+      },
+      scenes: Object.fromEntries(
+        Object.entries(scenes).map(([img, data]) => [
+          img,
+          {
+            type: 'equirectangular',
+            panorama: img,
+            ...data,
+          },
+        ])
+      ),
+    });
+
+    // DOM Elements
+    const imageList = document.getElementById('image-list');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const homeBtn = document.getElementById('homeBtn');
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    const listViewBtn = document.getElementById('list-view-btn');
+    const gridViewBtn = document.getElementById('grid-view-btn');
+    const searchInput = document.getElementById('search-input');
+    const rotateToggle = document.getElementById('rotate-toggle');
+    const rotateSpeed = document.getElementById('rotate-speed');
+    const currentIndexEl = document.getElementById('current-index');
+    const totalCountEl = document.getElementById('total-count');
+    const progressFill = document.getElementById('progress-fill');
+
+    // Global variables
+    let currentIndex = 1;
+    let isGridView = false;
+    totalCountEl.textContent = imageNames.length;
+
+    // Populate image list
+    function populateImageList() {
+      imageList.innerHTML = '';
+      
+      if (isGridView) {
+        imageList.classList.remove('list-view');
+        imageList.classList.add('grid-view');
+        
+        imageNames.forEach((name, index) => {
+          const li = document.createElement('li');
+          li.dataset.index = index + 1;
+          
+          const imgDiv = document.createElement('div');
+          imgDiv.className = 'grid-img';
+          imgDiv.textContent = index + 1;
+          
+          const titleDiv = document.createElement('div');
+          titleDiv.className = 'grid-title';
+          titleDiv.textContent = name.substring(0, 30) + (name.length > 30 ? '...' : '');
+          
+          li.appendChild(imgDiv);
+          li.appendChild(titleDiv);
+          
+          li.addEventListener('click', () => {
+            goToScene(index + 1);
+          });
+          
+          imageList.appendChild(li);
+        });
+      } else {
+        imageList.classList.remove('grid-view');
+        imageList.classList.add('list-view');
+        
+        imageNames.forEach((name, index) => {
+          const li = document.createElement('li');
+          li.dataset.index = index + 1;
+          
+          const iconDiv = document.createElement('div');
+          iconDiv.className = 'list-icon';
+          iconDiv.textContent = index + 1;
+          
+          const infoDiv = document.createElement('div');
+          infoDiv.className = 'image-info';
+          
+          const h3 = document.createElement('h3');
+          h3.textContent = name;
+          
+          const p = document.createElement('p');
+          p.textContent = `Панорама ${index + 1}`;
+          
+          infoDiv.appendChild(h3);
+          infoDiv.appendChild(p);
+          
+          li.appendChild(iconDiv);
+          li.appendChild(infoDiv);
+          
+          li.addEventListener('click', () => {
+            goToScene(index + 1);
+          });
+          
+          imageList.appendChild(li);
+        });
+      }
+      
+      updateActiveScene();
+    }
+
+    // Update active scene in the list
+    function updateActiveScene() {
+      const items = imageList.querySelectorAll('li');
+      items.forEach(item => {
+        const itemIndex = parseInt(item.dataset.index);
+        if (itemIndex === currentIndex) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+      
+      // Update progress
+      currentIndexEl.textContent = currentIndex;
+      const progressPercent = (currentIndex / imageNames.length) * 100;
+      progressFill.style.width = `${progressPercent}%`;
+    }
+
+    // Go to specific scene
+    function goToScene(index) {
+      if (index >= 1 && index <= imageNames.length) {
+        currentIndex = index;
+        viewer.loadScene(`${currentIndex}.jpg`);
+        updateActiveScene();
+      }
+    }
+
+    // Navigation
+    prevBtn.addEventListener('click', () => {
+      goToScene(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      goToScene(currentIndex + 1);
+    });
+
+    homeBtn.addEventListener('click', () => {
+      goToScene(1);
+    });
+
+    // Fullscreen toggle
+    fullscreenBtn.addEventListener('click', () => {
+      const container = document.querySelector('.panorama-container');
+      
+      if (!document.fullscreenElement) {
+        if (container.requestFullscreen) {
+          container.requestFullscreen();
+          fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+        }
+      }
+    });
+
+    // View toggle
+    listViewBtn.addEventListener('click', () => {
+      listViewBtn.classList.add('active');
+      gridViewBtn.classList.remove('active');
+      isGridView = false;
+      populateImageList();
+    });
+
+    gridViewBtn.addEventListener('click', () => {
+      gridViewBtn.classList.add('active');
+      listViewBtn.classList.remove('active');
+      isGridView = true;
+      populateImageList();
+    });
+
+    // Search functionality
+    searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.toLowerCase();
+      const items = imageList.querySelectorAll('li');
+      
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+
+    // Auto rotation control
+    rotateToggle.addEventListener('click', () => {
+      if (viewer.getAutoRotate()) {
+        viewer.stopAutoRotate();
+        rotateToggle.innerHTML = '<i class="fas fa-sync"></i>';
+      } else {
+        viewer.startAutoRotate();
+        rotateToggle.innerHTML = '<i class="fas fa-pause"></i>';
+      }
+    });
+
+    rotateSpeed.addEventListener('input', () => {
+      viewer.setAutoRotate(parseFloat(rotateSpeed.value));
+    });
+
+    // Scene change event
+    viewer.on('scenechange', (sceneId) => {
+      currentIndex = parseInt(sceneId);
+      updateActiveScene();
+    });
+
+    // Initialize
+    populateImageList();
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        goToScene(currentIndex - 1);
+      } else if (e.key === 'ArrowRight') {
+        goToScene(currentIndex + 1);
+      } else if (e.key === 'Home') {
+        goToScene(1);
+      }
+    });
+  </script>
 </body>
 </html>
